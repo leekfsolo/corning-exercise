@@ -1,9 +1,9 @@
-import DataTable from "./components/DataTable";
+import InclusionTable from "./features/inclusion-table/InclusionTable";
 
 function App() {
   return (
-    <div className="app">
-      <DataTable />
+    <div className="w-full px-20 py-10">
+      <InclusionTable />
     </div>
   );
 }
