@@ -1,11 +1,14 @@
 import {
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
   type ColumnDef,
+  type SortingState,
 } from "@tanstack/react-table";
 import { cn } from "@/utils/classname.util";
-import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowUp, ArrowDown } from "lucide-react";
+import { useState } from "react";
 
 interface DataTableProps<TData = unknown> {
   columns: ColumnDef<TData>[];
@@ -21,12 +24,6 @@ interface DataTableProps<TData = unknown> {
    * Table class name.
    */
   tableClassName?: string;
-
-  /**
-   * @description
-   * Enrow selection column.
-   */
-  enableRowSelection?: boolean;
 }
 
 function DataTable<TData = unknown>({
@@ -35,10 +32,17 @@ function DataTable<TData = unknown>({
   className,
   tableClassName,
 }: DataTableProps<TData>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const table = useReactTable({
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
   });
 
   return (

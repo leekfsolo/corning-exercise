@@ -21,7 +21,7 @@ const Button = ({
     <button
       onClick={onClick}
       className={cn(
-        "px-4 py-2 rounded-md flex items-center gap-1 cursor-pointer hover:opacity-85 transition-opacity",
+        "px-4 py-2 rounded-md flex items-center gap-1.5 cursor-pointer hover:opacity-85 transition-opacity disabled:opacity-50 disabled:cursor-default",
         className,
       )}
       disabled={disabled}
