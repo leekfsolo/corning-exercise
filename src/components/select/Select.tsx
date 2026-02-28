@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classname.utils";
+import { cn } from "@/utils/classname";
 import { type SelectHTMLAttributes, forwardRef } from "react";
 import { ChevronDown } from "lucide-react";
 
@@ -14,7 +14,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <select
           className={cn(
             "flex h-9 w-full rounded-md border border-slate-200 bg-white px-3 py-1 pr-8 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 appearance-none min-w-30 cursor-pointer",
-            className,
+            className
           )}
           ref={ref}
           {...props}
@@ -30,7 +30,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </div>
       </div>
     );
-  },
+  }
 );
 Select.displayName = "Select";
 

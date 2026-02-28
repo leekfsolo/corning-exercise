@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classname.utils";
+import { cn } from "@/utils/classname";
 
 type ButtonVariant =
   | "primary"
@@ -50,7 +50,7 @@ const Button = ({
         "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950 disabled:pointer-events-none disabled:opacity-50 border cursor-pointer",
         variantStyles[variant],
         sizeStyles[size],
-        className,
+        className
       )}
       {...props}
     >

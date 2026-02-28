@@ -7,7 +7,7 @@ import {
   type TableMeta,
   type SortingState,
 } from "@tanstack/react-table";
-import { cn } from "@/utils/classname.utils";
+import { cn } from "@/utils/classname";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { useState } from "react";
 
@@ -50,7 +50,7 @@ function DataTable<TData extends { id: string }>({
     <div
       className={cn(
         "w-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm",
-        className,
+        className
       )}
     >
       <div className="overflow-x-auto">
@@ -70,13 +70,13 @@ function DataTable<TData extends { id: string }>({
                           className={cn(
                             "flex items-center gap-2",
                             header.column.getCanSort() &&
-                              "cursor-pointer select-none hover:text-gray-700",
+                              "cursor-pointer select-none hover:text-gray-700"
                           )}
                           onClick={header.column.getToggleSortingHandler()}
                         >
                           {flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                           {header.column.getCanSort() && (
                             <span className="shrink-0 text-gray-400">
@@ -107,7 +107,7 @@ function DataTable<TData extends { id: string }>({
                   className={cn(
                     "bg-white hover:bg-gray-50/80 transition-colors group cursor-pointer",
                     row.original.id === selectedRowId &&
-                      "bg-blue-50 hover:bg-blue-50",
+                      "bg-blue-50 hover:bg-blue-50"
                   )}
                 >
                   {row.getVisibleCells().map((cell) => {
@@ -117,12 +117,12 @@ function DataTable<TData extends { id: string }>({
                         key={cell.id}
                         className={cn(
                           "px-6 py-4 text-gray-600 whitespace-nowrap",
-                          isRowError ? "align-top" : "align-middle",
+                          isRowError ? "align-top" : "align-middle"
                         )}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </td>
                     );

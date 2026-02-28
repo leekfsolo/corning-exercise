@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classname.utils";
+import { cn } from "@/utils/classname";
 import type { ReactNode } from "react";
 
 type BadgeVariant = "default" | "success" | "warning" | "danger" | "info";
@@ -23,7 +23,7 @@ const Badge = ({ children, variant = "default", className }: BadgeProps) => {
       className={cn(
         "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 capitalize",
         variantStyles[variant],
-        className,
+        className
       )}
     >
       {children}

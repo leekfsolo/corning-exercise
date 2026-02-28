@@ -5,7 +5,7 @@ import {
   type Inclusion,
   type InclusionTableProps,
 } from "@/types";
-import { loadInclusions, saveInclusions } from "@/utils/storage.utils";
+import { loadInclusions, saveInclusions } from "@/utils/storage";
 import { validateInclusion, hasErrors } from "@/utils/validation";
 
 type InclusionError = Partial<Record<keyof Inclusion, string>>;
@@ -98,7 +98,7 @@ export const useInclusionTable = () => {
 
   const handleInputChange = (
     field: keyof Inclusion,
-    value: string | number,
+    value: string | number
   ) => {
     let nextItem: Partial<Inclusion> | null = null;
 
@@ -107,7 +107,7 @@ export const useInclusionTable = () => {
       setAddingItem(nextItem);
     } else if (currentSelectedItem) {
       const originalItem = data.find(
-        (item) => item.id === currentSelectedItem.id,
+        (item) => item.id === currentSelectedItem.id
       );
       nextItem = {
         ...originalItem,
