@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* ───── Design Tokens ───── */
+:root {
+  --bg-primary: #0f1117;
+  --bg-secondary: #181a23;
+  --bg-surface: #1e2030;
+  --bg-hover: #262840;
+  --bg-selected: #1e2a4a;
+  --bg-editing: #1a1e2e;
+
+  --border-default: #2a2d3e;
+  --border-focus: #6366f1;
+  --border-error: #ef4444;
+
+  --text-primary: #e2e4f0;
+  --text-secondary: #8b8fa8;
+  --text-muted: #5a5e78;
+  --text-error: #f87171;
+
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+  --green: #22c55e;
+  --green-hover: #4ade80;
+  --red: #ef4444;
+  --red-hover: #f87171;
+  --orange: #f59e0b;
+
+  --badge-bubble: #3b82f6;
+  --badge-crack: #ef4444;
+  --badge-scratch: #f59e0b;
+
+  --radius: 8px;
+  --radius-sm: 6px;
+  --transition: 150ms ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem 1.5rem;
+}
