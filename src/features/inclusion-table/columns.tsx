@@ -1,6 +1,11 @@
 import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
-import type { Inclusion, InclusionTableProps } from "@/types";
+import Badge from "@/components/badge/Badge";
+import {
+  InclusionType,
+  type Inclusion,
+  type InclusionTableProps,
+} from "@/types";
 import {
   createColumnHelper,
   type ColumnDef,
@@ -24,6 +29,19 @@ declare module "@tanstack/react-table" {
 }
 
 const columnHelper = createColumnHelper<InclusionTableProps>();
+
+const getBadgeVariant = (type: InclusionType) => {
+  switch (type) {
+    case InclusionType.BUBBLE:
+      return "info";
+    case InclusionType.CRACK:
+      return "danger";
+    case InclusionType.SCRATCH:
+      return "warning";
+    default:
+      return "default";
+  }
+};
 
 const createInclusionColumns = () => {
   return [
@@ -101,23 +119,29 @@ const createInclusionColumns = () => {
     }),
     columnHelper.accessor("type", {
       header: () => <div className="text-left">Type</div>,
-      cell: (info) => (
-        <EditableCell
-          id={info.row.original.id}
-          meta={info.table.options.meta}
-          renderEdit={(mutatingItem: Partial<Inclusion>) => (
-            <Select
-              value={mutatingItem.type ?? ""}
-              onChange={(e) =>
-                info.table.options.meta?.onInputChange?.("type", e.target.value)
-              }
-              options={INCLUSION_OPTIONS}
-            />
-          )}
-        >
-          <span className="capitalize">{info.getValue()}</span>
-        </EditableCell>
-      ),
+      cell: (info) => {
+        const type = info.getValue() as InclusionType;
+        return (
+          <EditableCell
+            id={info.row.original.id}
+            meta={info.table.options.meta}
+            renderEdit={(mutatingItem: Partial<Inclusion>) => (
+              <Select
+                value={mutatingItem.type ?? ""}
+                onChange={(e) =>
+                  info.table.options.meta?.onInputChange?.(
+                    "type",
+                    e.target.value,
+                  )
+                }
+                options={INCLUSION_OPTIONS}
+              />
+            )}
+          >
+            <Badge variant={getBadgeVariant(type)}>{type}</Badge>
+          </EditableCell>
+        );
+      },
     }),
     columnHelper.accessor("actions", {
       header: () => <div className="text-left">Actions</div>,

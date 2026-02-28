@@ -25,8 +25,8 @@ const InclusionTable = () => {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Inclusion Table</h1>
         <Button
+          variant="primary"
           iconStart={<Plus size={20} />}
-          className="bg-blue-500 text-white"
           onClick={handleAdd}
           disabled={Boolean(mutatingItem)}
         >

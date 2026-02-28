@@ -20,15 +20,17 @@ const ButtonGroupActions = ({
     return (
       <div className="flex gap-2 items-center">
         <Button
+          variant="success"
+          size="sm"
           onClick={() => onSave?.(item.id)}
-          className="bg-green-500 text-white hover:bg-green-600"
           iconStart={<Check size={16} />}
         >
           Save
         </Button>
         <Button
+          variant="outline"
+          size="sm"
           onClick={() => onCancel?.()}
-          className="border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white"
           iconStart={<X size={16} />}
         >
           Cancel
@@ -40,15 +42,18 @@ const ButtonGroupActions = ({
   return (
     <div className="flex gap-2 items-center">
       <Button
+        variant="outline"
+        size="sm"
+        className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
         onClick={() => onEdit?.(item)}
-        className="border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
         iconStart={<Pencil size={16} />}
       >
         Edit
       </Button>
       <Button
+        variant="danger"
+        size="sm"
         onClick={() => onDelete?.(item.id)}
-        className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
         iconStart={<Trash2 size={16} />}
       >
         Delete
