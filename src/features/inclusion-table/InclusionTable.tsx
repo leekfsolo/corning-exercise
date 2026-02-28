@@ -8,6 +8,7 @@ import { useInclusionTable } from "../../hooks/useInclusionTable";
 
 const InclusionTable = () => {
   const {
+    error,
     data,
     mutatingItem,
     handleEdit,
@@ -36,7 +37,9 @@ const InclusionTable = () => {
       <DataTable<InclusionTableProps>
         data={data}
         columns={columns}
+        getRowIsError={(row) => row.id === mutatingItem?.id && Boolean(error)}
         meta={{
+          error,
           mutatingItem,
           onEdit: handleEdit,
           onDelete: handleDelete,

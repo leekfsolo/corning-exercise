@@ -25,6 +25,7 @@ declare module "@tanstack/react-table" {
     onSave?: (id: string) => void;
     onCancel?: () => void;
     onInputChange?: (field: keyof Inclusion, value: string | number) => void;
+    error?: Partial<Record<keyof Inclusion, string>> | null;
   }
 }
 
@@ -51,71 +52,83 @@ const createInclusionColumns = () => {
     }),
     columnHelper.accessor("parent_id", {
       header: () => <div className="text-left">Parent ID</div>,
-      cell: (info) => (
-        <EditableCell
-          id={info.row.original.id}
-          meta={info.table.options.meta}
-          renderEdit={(mutatingItem: Partial<Inclusion>) => (
-            <Input
-              type="text"
-              value={mutatingItem.parent_id ?? ""}
-              onChange={(e) =>
-                info.table.options.meta?.onInputChange?.(
-                  "parent_id",
-                  e.target.value,
-                )
-              }
-            />
-          )}
-        >
-          {info.getValue()}
-        </EditableCell>
-      ),
+      cell: (info) => {
+        const id = info.row.original.id;
+        const meta = info.table.options.meta;
+
+        return (
+          <EditableCell
+            id={id}
+            meta={meta}
+            renderEdit={(mutatingItem: Partial<Inclusion>) => (
+              <Input
+                type="text"
+                value={mutatingItem.parent_id ?? ""}
+                onChange={(e) =>
+                  meta?.onInputChange?.("parent_id", e.target.value)
+                }
+              />
+            )}
+          >
+            {info.getValue()}
+          </EditableCell>
+        );
+      },
     }),
     columnHelper.accessor((row) => row.name, {
       id: "name",
       header: () => <div className="text-left">Name</div>,
-      cell: (info) => (
-        <EditableCell
-          id={info.row.original.id}
-          meta={info.table.options.meta}
-          renderEdit={(mutatingItem: Partial<Inclusion>) => (
-            <Input
-              type="text"
-              value={mutatingItem.name ?? ""}
-              onChange={(e) =>
-                info.table.options.meta?.onInputChange?.("name", e.target.value)
-              }
-            />
-          )}
-        >
-          {info.getValue()}
-        </EditableCell>
-      ),
+      cell: (info) => {
+        const id = info.row.original.id;
+        const meta = info.table.options.meta;
+
+        return (
+          <EditableCell
+            id={id}
+            meta={meta}
+            renderEdit={(mutatingItem: Partial<Inclusion>) => (
+              <Input
+                type="text"
+                value={mutatingItem.name ?? ""}
+                onChange={(e) => meta?.onInputChange?.("name", e.target.value)}
+                errorMessage={meta?.error?.name}
+              />
+            )}
+          >
+            {info.getValue()}
+          </EditableCell>
+        );
+      },
     }),
     columnHelper.accessor("radius", {
       header: () => <div className="text-left">Radius</div>,
-      cell: (info) => (
-        <EditableCell
-          id={info.row.original.id}
-          meta={info.table.options.meta}
-          renderEdit={(mutatingItem: Partial<Inclusion>) => (
-            <Input
-              type="number"
-              step={0.1}
-              value={mutatingItem.radius ?? ""}
-              onChange={(e) =>
-                info.table.options.meta?.onInputChange?.(
-                  "radius",
-                  parseFloat(e.target.value) || 0,
-                )
-              }
-            />
-          )}
-        >
-          {info.renderValue()}
-        </EditableCell>
-      ),
+      cell: (info) => {
+        const id = info.row.original.id;
+        const meta = info.table.options.meta;
+
+        return (
+          <EditableCell
+            id={id}
+            meta={meta}
+            renderEdit={(mutatingItem: Partial<Inclusion>) => (
+              <Input
+                type="number"
+                step={0.1}
+                value={mutatingItem.radius ?? ""}
+                onChange={(e) =>
+                  meta?.onInputChange?.(
+                    "radius",
+                    parseFloat(e.target.value) || 0,
+                  )
+                }
+                errorMessage={meta?.error?.radius}
+              />
+            )}
+          >
+            {info.renderValue()}
+          </EditableCell>
+        );
+      },
     }),
     columnHelper.accessor("type", {
       header: () => <div className="text-left">Type</div>,

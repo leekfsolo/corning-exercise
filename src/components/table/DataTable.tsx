@@ -12,6 +12,7 @@ import { ArrowUp, ArrowDown } from "lucide-react";
 import { useState } from "react";
 
 interface DataTableProps<TData = unknown> {
+  getRowIsError?: (rowData: TData) => boolean;
   columns: ColumnDef<TData>[];
   data: TData[];
   /**
@@ -44,6 +45,7 @@ function DataTable<TData = unknown>({
   className,
   tableClassName,
   meta,
+  getRowIsError,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -119,10 +121,14 @@ function DataTable<TData = unknown>({
                   className="bg-white hover:bg-gray-50/80 transition-colors group"
                 >
                   {row.getVisibleCells().map((cell) => {
+                    const isRowError = getRowIsError?.(row.original) ?? false;
                     return (
                       <td
                         key={cell.id}
-                        className="px-6 py-4 text-gray-600 whitespace-nowrap"
+                        className={cn(
+                          "px-6 py-4 text-gray-600 whitespace-nowrap",
+                          isRowError ? "align-top" : "align-middle",
+                        )}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
