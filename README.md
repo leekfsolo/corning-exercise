@@ -4,7 +4,7 @@
 
 ### Installation
 
-1. Clone or download the repository.
+1. Clone the repository.
 2. Navigate to the project directory:
    ```bash
    cd corning-exercise
@@ -40,18 +40,14 @@ Run the unit test suite using Vitest:
 npm test
 ```
 
-### Linting
-
-Check the codebase for potential issues and style violations:
-
-```bash
-npm run lint
-```
-
 ## Tech stack
 
 1. React + TypeScript + Vite
 2. Tailwind CSS
+
+## AI Assistant
+
+I used Antigravity with Gemini 3 Flash and Claude Opus 4.6 to help me with this task.
 
 ## Assumptions or Trade-offs
 
@@ -68,6 +64,7 @@ npm run lint
 3. Add auto focus to the first input field when editing/adding an item.
 4. Add keyboard actions such as Enter for saving.
 5. Format radius value (currently display value uses dot while edit value uses comma).
+6. Enhance UI for input components.
 
 ### Enhancement after integration with backend
 
