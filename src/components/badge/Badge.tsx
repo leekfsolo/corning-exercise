@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classname.util";
+import { cn } from "@/utils/classname.utils";
 import type { ReactNode } from "react";
 
 type BadgeVariant = "default" | "success" | "warning" | "danger" | "info";

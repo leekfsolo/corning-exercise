@@ -5,7 +5,7 @@ import {
   type Inclusion,
   type InclusionTableProps,
 } from "@/types";
-import { loadInclusions, saveInclusions } from "@/utils/storage";
+import { loadInclusions, saveInclusions } from "@/utils/storage.utils";
 
 type InclusionError = Partial<Record<keyof Inclusion, string>>;
 
@@ -13,6 +13,7 @@ export const useInclusionTable = () => {
   const [error, setError] = useState<InclusionError | null>(null);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [data, setData] = useState<InclusionTableProps[]>(loadInclusions);
+  const [selectedRowId, setSelectedRowId] = useState<string | null>(null);
   const [currentSelectedItem, setCurrentSelectedItem] =
     useState<Partial<Inclusion> | null>(null);
   const [addingItem, setAddingItem] = useState<Partial<Inclusion> | null>(null);
@@ -139,6 +140,10 @@ export const useInclusionTable = () => {
     saveInclusions(data);
   }, [data]);
 
+  const handleRowSelect = (id: string) => {
+    setSelectedRowId((prev) => (prev === id ? null : id));
+  };
+
   return {
     data: currentDisplayItems,
     mutatingItem,
@@ -148,6 +153,8 @@ export const useInclusionTable = () => {
     handleCancel,
     handleAdd,
     handleInputChange,
+    handleRowSelect,
+    selectedRowId,
     error,
   };
 };

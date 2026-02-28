@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classname.util";
+import { cn } from "@/utils/classname.utils";
 import { type SelectHTMLAttributes, forwardRef } from "react";
 import { ChevronDown } from "lucide-react";
 

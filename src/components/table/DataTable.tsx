@@ -7,12 +7,14 @@ import {
   type TableMeta,
   type SortingState,
 } from "@tanstack/react-table";
-import { cn } from "@/utils/classname.util";
+import { cn } from "@/utils/classname.utils";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { useState } from "react";
 
-interface DataTableProps<TData = unknown> {
+interface DataTableProps<TData extends { id: string }> {
   getRowIsError?: (rowData: TData) => boolean;
+  onRowClick?: (row: TData) => void;
+  selectedRowId?: string | null;
   columns: ColumnDef<TData>[];
   data: TData[];
   /**
@@ -39,13 +41,15 @@ interface DataTableProps<TData = unknown> {
   tableClassName?: string;
 }
 
-function DataTable<TData = unknown>({
+function DataTable<TData extends { id: string }>({
   columns,
   data,
   className,
   tableClassName,
   meta,
   getRowIsError,
+  onRowClick,
+  selectedRowId,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -118,7 +122,12 @@ function DataTable<TData = unknown>({
               return (
                 <tr
                   key={row.id}
-                  className="bg-white hover:bg-gray-50/80 transition-colors group"
+                  onClick={() => onRowClick?.(row.original)}
+                  className={cn(
+                    "bg-white hover:bg-gray-50/80 transition-colors group cursor-pointer",
+                    row.original.id === selectedRowId &&
+                      "bg-blue-50 hover:bg-blue-50",
+                  )}
                 >
                   {row.getVisibleCells().map((cell) => {
                     const isRowError = getRowIsError?.(row.original) ?? false;

@@ -17,12 +17,14 @@ const InclusionTable = () => {
     handleCancel,
     handleAdd,
     handleInputChange,
+    handleRowSelect,
+    selectedRowId,
   } = useInclusionTable();
 
   const columns = useMemo(() => createInclusionColumns(), []);
 
   return (
-    <div className="w-full ">
+    <div className="p-8 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Inclusion Table</h1>
         <Button
@@ -38,6 +40,8 @@ const InclusionTable = () => {
         data={data}
         columns={columns}
         getRowIsError={(row) => row.id === mutatingItem?.id && Boolean(error)}
+        selectedRowId={selectedRowId}
+        onRowClick={(row) => handleRowSelect(row.id)}
         meta={{
           error,
           mutatingItem,
