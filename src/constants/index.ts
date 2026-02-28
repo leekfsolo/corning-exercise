@@ -38,4 +38,9 @@ const MOCK_DATA: Array<Inclusion> = [
   },
 ];
 
-export { MOCK_DATA };
+const INCLUSION_OPTIONS = Object.values(InclusionType).map((type) => ({
+  label: type[0].toUpperCase() + type.slice(1),
+  value: type,
+}));
+
+export { MOCK_DATA, INCLUSION_OPTIONS };

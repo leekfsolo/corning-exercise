@@ -1,79 +1,31 @@
-import Button from "@/components/button/Button";
-import type { Inclusion } from "@/types";
-import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
-import { Check, Pencil, Trash2, X } from "lucide-react";
-import type { ReactNode } from "react";
+import Input from "@/components/input/Input";
+import Select from "@/components/select/Select";
+import type { Inclusion, InclusionTableProps } from "@/types";
+import {
+  createColumnHelper,
+  type ColumnDef,
+  type RowData,
+} from "@tanstack/react-table";
 
-export type InclusionTableProps = {
-  actions?: ReactNode;
-} & Inclusion;
+import ButtonGroupActions from "./ButtonGroupActions";
+import { INCLUSION_OPTIONS } from "@/constants";
+import EditableCell from "./EditableCell";
 
-interface CreateInclusionColumnsProps {
-  onEdit: (id: string) => void;
-  onDelete: (id: string) => void;
-  onSave: (id: string) => void;
-  onCancel: () => void;
-  isMutating: boolean;
+declare module "@tanstack/react-table" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface TableMeta<TData extends RowData> {
+    mutatingItem?: Partial<Inclusion> | null;
+    onEdit?: (item: Inclusion) => void;
+    onDelete?: (id: string) => void;
+    onSave?: (id: string) => void;
+    onCancel?: () => void;
+    onInputChange?: (field: keyof Inclusion, value: string | number) => void;
+  }
 }
 
 const columnHelper = createColumnHelper<InclusionTableProps>();
 
-const ButtonGroupActions = ({
-  onEdit,
-  onDelete,
-  isMutating,
-  onSave,
-  onCancel,
-  id,
-}: CreateInclusionColumnsProps & { id: string }) => {
-  if (isMutating) {
-    return (
-      <div className="flex gap-2 items-center">
-        <Button
-          onClick={() => onSave(id)}
-          className="bg-green-500 text-white hover:bg-green-600"
-          iconStart={<Check size={16} />}
-        >
-          Save
-        </Button>
-        <Button
-          onClick={() => onCancel()}
-          className="border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white"
-          iconStart={<X size={16} />}
-        >
-          Cancel
-        </Button>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex gap-2 items-center">
-      <Button
-        onClick={() => onEdit(id)}
-        className="border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-        iconStart={<Pencil size={16} />}
-      >
-        Edit
-      </Button>
-      <Button
-        onClick={() => onDelete(id)}
-        className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-        iconStart={<Trash2 size={16} />}
-      >
-        Delete
-      </Button>
-    </div>
-  );
-};
-
-const createInclusionColumns = ({
-  onEdit,
-  onDelete,
-  isMutating,
-  onSave,
-  onCancel,
-}: CreateInclusionColumnsProps) => {
+const createInclusionColumns = () => {
   return [
     columnHelper.accessor("id", {
       cell: (info) => info.getValue(),
@@ -81,33 +33,99 @@ const createInclusionColumns = ({
     }),
     columnHelper.accessor("parent_id", {
       header: () => <div className="text-left">Parent ID</div>,
+      cell: (info) => (
+        <EditableCell
+          id={info.row.original.id}
+          meta={info.table.options.meta}
+          renderEdit={(mutatingItem: Partial<Inclusion>) => (
+            <Input
+              type="text"
+              value={mutatingItem.parent_id ?? ""}
+              onChange={(e) =>
+                info.table.options.meta?.onInputChange?.(
+                  "parent_id",
+                  e.target.value,
+                )
+              }
+            />
+          )}
+        >
+          {info.getValue()}
+        </EditableCell>
+      ),
     }),
     columnHelper.accessor((row) => row.name, {
       id: "name",
-      cell: (info) => <div>{info.getValue()}</div>,
       header: () => <div className="text-left">Name</div>,
+      cell: (info) => (
+        <EditableCell
+          id={info.row.original.id}
+          meta={info.table.options.meta}
+          renderEdit={(mutatingItem: Partial<Inclusion>) => (
+            <Input
+              type="text"
+              value={mutatingItem.name ?? ""}
+              onChange={(e) =>
+                info.table.options.meta?.onInputChange?.("name", e.target.value)
+              }
+            />
+          )}
+        >
+          {info.getValue()}
+        </EditableCell>
+      ),
     }),
     columnHelper.accessor("radius", {
       header: () => <div className="text-left">Radius</div>,
-      cell: (info) => info.renderValue(),
+      cell: (info) => (
+        <EditableCell
+          id={info.row.original.id}
+          meta={info.table.options.meta}
+          renderEdit={(mutatingItem: Partial<Inclusion>) => (
+            <Input
+              type="number"
+              step={0.1}
+              value={mutatingItem.radius ?? ""}
+              onChange={(e) =>
+                info.table.options.meta?.onInputChange?.(
+                  "radius",
+                  parseFloat(e.target.value) || 0,
+                )
+              }
+            />
+          )}
+        >
+          {info.renderValue()}
+        </EditableCell>
+      ),
     }),
     columnHelper.accessor("type", {
       header: () => <div className="text-left">Type</div>,
-      cell: (info) => {
-        const type = info.getValue();
-        return <span className="capitalize">{type}</span>;
-      },
+      cell: (info) => (
+        <EditableCell
+          id={info.row.original.id}
+          meta={info.table.options.meta}
+          renderEdit={(mutatingItem: Partial<Inclusion>) => (
+            <Select
+              value={mutatingItem.type ?? ""}
+              onChange={(e) =>
+                info.table.options.meta?.onInputChange?.("type", e.target.value)
+              }
+              options={INCLUSION_OPTIONS}
+            />
+          )}
+        >
+          <span className="capitalize">{info.getValue()}</span>
+        </EditableCell>
+      ),
     }),
     columnHelper.accessor("actions", {
       header: () => <div className="text-left">Actions</div>,
+      enableSorting: false,
       cell: (info) => (
         <ButtonGroupActions
-          onEdit={onEdit}
-          onDelete={onDelete}
-          onSave={onSave}
-          onCancel={onCancel}
-          isMutating={isMutating}
-          id={info.row.original.id}
+          item={info.row.original}
+          meta={info.table.options.meta}
         />
       ),
     }),

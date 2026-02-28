@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 enum InclusionType {
   BUBBLE = "bubble",
   CRACK = "crack",
@@ -12,5 +14,9 @@ type Inclusion = {
   type: InclusionType;
 };
 
-export type { Inclusion };
+type InclusionTableProps = {
+  actions?: ReactNode;
+} & Inclusion;
+
+export type { Inclusion, InclusionTableProps };
 export { InclusionType };

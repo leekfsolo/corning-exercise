@@ -4,6 +4,7 @@ import {
   getSortedRowModel,
   useReactTable,
   type ColumnDef,
+  type TableMeta,
   type SortingState,
 } from "@tanstack/react-table";
 import { cn } from "@/utils/classname.util";
@@ -21,6 +22,17 @@ interface DataTableProps<TData = unknown> {
 
   /**
    * @description
+   * Enable row selection column.
+   */
+  enableRowSelection?: boolean;
+  /**
+   * @description
+   * Custom table meta for passing dynamic state to columns.
+   */
+  meta?: TableMeta<TData>;
+
+  /**
+   * @description
    * Table class name.
    */
   tableClassName?: string;
@@ -31,6 +43,7 @@ function DataTable<TData = unknown>({
   data,
   className,
   tableClassName,
+  meta,
 }: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -43,6 +56,7 @@ function DataTable<TData = unknown>({
     state: {
       sorting,
     },
+    meta,
   });
 
   return (
