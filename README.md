@@ -74,6 +74,7 @@ I used Antigravity with Gemini 3 Flash and Claude Opus 4.6 to help me with this 
 5. Add keyboard actions such as Enter for saving.
 6. Format radius value (currently display value uses dot while edit value uses comma).
 7. Enhance UI for input components.
+8. Add form library such as react-hook-form for better form handling.
 
 ### Enhancement after integration with backend
 

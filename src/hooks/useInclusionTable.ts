@@ -68,8 +68,8 @@ export const useInclusionTable = () => {
 
     if (addingItem) {
       currentData.push(addingItem as Inclusion);
-      handleReset();
       setData(currentData);
+      handleReset();
       return;
     }
 
@@ -129,13 +129,13 @@ export const useInclusionTable = () => {
     return data;
   }, [data, addingItem]);
 
-  useEffect(() => {
-    saveInclusions(data);
-  }, [data]);
-
   const handleRowSelect = (id: string) => {
     setSelectedRowId((prev) => (prev === id ? null : id));
   };
+
+  useEffect(() => {
+    saveInclusions(data);
+  }, [data]);
 
   return {
     data: currentDisplayItems,

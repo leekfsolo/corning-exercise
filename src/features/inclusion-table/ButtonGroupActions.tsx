@@ -16,13 +16,9 @@ const ButtonGroupActions = ({
   const onCancel = meta?.onCancel;
   const mutatingItem = meta?.mutatingItem;
 
-  const handleClickPropagate = (
-    e: React.MouseEvent,
-    callback: (...args: unknown[]) => void,
-    ...args: unknown[]
-  ) => {
+  const handleClickPropagate = (e: React.MouseEvent, callback: () => void) => {
     e.stopPropagation();
-    callback(...args);
+    callback();
   };
 
   if (mutatingItem?.id === item.id) {
