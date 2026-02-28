@@ -1,17 +1,18 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { uuidv7 } from "uuidv7";
 import {
   InclusionType,
   type Inclusion,
   type InclusionTableProps,
 } from "@/types";
-import { MOCK_DATA } from "@/constants";
+import { loadInclusions, saveInclusions } from "@/utils/storage";
 
 type InclusionError = Partial<Record<keyof Inclusion, string>>;
 
 export const useInclusionTable = () => {
   const [error, setError] = useState<InclusionError | null>(null);
-  const [data, setData] = useState<InclusionTableProps[]>(MOCK_DATA);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [data, setData] = useState<InclusionTableProps[]>(loadInclusions);
   const [currentSelectedItem, setCurrentSelectedItem] =
     useState<Partial<Inclusion> | null>(null);
   const [addingItem, setAddingItem] = useState<Partial<Inclusion> | null>(null);
@@ -49,6 +50,7 @@ export const useInclusionTable = () => {
     setCurrentSelectedItem(null);
     setAddingItem(null);
     setError(null);
+    setIsSaved(false);
   };
 
   const handleDelete = (id: string) => {
@@ -60,9 +62,11 @@ export const useInclusionTable = () => {
     setCurrentSelectedItem(item);
     setAddingItem(null);
     setError(null);
+    setIsSaved(false);
   };
 
   const handleSave = (id: string) => {
+    setIsSaved(true);
     const isValid = handleValidate();
     if (!isValid) return;
 
@@ -119,7 +123,7 @@ export const useInclusionTable = () => {
       setCurrentSelectedItem(nextItem);
     }
 
-    if (nextItem) {
+    if (nextItem && isSaved) {
       handleValidate(nextItem);
     }
   };
@@ -130,6 +134,10 @@ export const useInclusionTable = () => {
     }
     return data;
   }, [data, addingItem]);
+
+  useEffect(() => {
+    saveInclusions(data);
+  }, [data]);
 
   return {
     data: currentDisplayItems,

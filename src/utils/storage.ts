@@ -13,7 +13,7 @@ export function loadInclusions(): Inclusion[] {
       }
     }
   } catch {
-    // Corrupted data — fall back to mock
+    console.error("Failed to load inclusions from storage");
   }
   return structuredClone(MOCK_DATA);
 }
@@ -22,6 +22,6 @@ export function saveInclusions(data: Inclusion[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch {
-    // Storage full or unavailable — silently fail
+    console.error("Failed to save inclusions to storage");
   }
 }
