@@ -6,6 +6,7 @@ import {
   type InclusionTableProps,
 } from "@/types";
 import { loadInclusions, saveInclusions } from "@/utils/storage.utils";
+import { validateInclusion, hasErrors } from "@/utils/validation";
 
 type InclusionError = Partial<Record<keyof Inclusion, string>>;
 
@@ -19,26 +20,18 @@ export const useInclusionTable = () => {
   const [addingItem, setAddingItem] = useState<Partial<Inclusion> | null>(null);
 
   const handleValidate = (overrides?: Partial<Inclusion>) => {
-    const currentError: InclusionError = {};
     const baseItem = currentSelectedItem || addingItem;
     const itemToValidate = overrides || baseItem;
 
     if (!itemToValidate) return false;
 
-    if (!itemToValidate.name) {
-      currentError.name = "Name is required";
-    }
+    const currentError = validateInclusion({
+      name: itemToValidate.name || "",
+      radius: itemToValidate.radius ?? "",
+      type: itemToValidate.type || "",
+    });
 
-    if (!itemToValidate.radius) {
-      currentError.radius = "Radius is required";
-    } else {
-      const radius = Number(itemToValidate.radius);
-      if (radius <= 0 || isNaN(radius)) {
-        currentError.radius = "Radius must be greater than 0";
-      }
-    }
-
-    if (Object.keys(currentError).length > 0) {
+    if (hasErrors(currentError)) {
       setError(currentError);
       return false;
     }
