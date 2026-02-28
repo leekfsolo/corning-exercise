@@ -12,6 +12,8 @@
 3. Install dependencies:
    ```bash
    npm install
+   # or
+   pnpm install
    ```
 
 ## 🛠️ Available Scripts
@@ -22,6 +24,8 @@ Start the development server with Hot Module Replacement (HMR):
 
 ```bash
 npm run dev
+# or
+pnpm dev
 ```
 
 ### Build
@@ -30,6 +34,8 @@ Compile the TypeScript code and bundle the application for production:
 
 ```bash
 npm run build
+# or
+pnpm build
 ```
 
 ### Testing
@@ -38,6 +44,8 @@ Run the unit test suite using Vitest:
 
 ```bash
 npm test
+# or
+pnpm test
 ```
 
 ## Tech stack
@@ -59,12 +67,13 @@ I used Antigravity with Gemini 3 Flash and Claude Opus 4.6 to help me with this 
 
 ### Enhancement before integration with backend
 
-1. Add confirm modal when delete an item.
-2. Add toast notification when an action is performed.
-3. Add auto focus to the first input field when editing/adding an item.
-4. Add keyboard actions such as Enter for saving.
-5. Format radius value (currently display value uses dot while edit value uses comma).
-6. Enhance UI for input components.
+1. Add ci for linting and automated testing
+2. Add confirm modal when delete an item.
+3. Add toast notification when an action is performed.
+4. Add auto focus to the first input field when editing/adding an item.
+5. Add keyboard actions such as Enter for saving.
+6. Format radius value (currently display value uses dot while edit value uses comma).
+7. Enhance UI for input components.
 
 ### Enhancement after integration with backend
 
