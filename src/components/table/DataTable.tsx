@@ -17,27 +17,8 @@ interface DataTableProps<TData extends { id: string }> {
   selectedRowId?: string | null;
   columns: ColumnDef<TData>[];
   data: TData[];
-  /**
-   * @description
-   * Container class name.
-   */
   className?: string;
-
-  /**
-   * @description
-   * Enable row selection column.
-   */
-  enableRowSelection?: boolean;
-  /**
-   * @description
-   * Custom table meta for passing dynamic state to columns.
-   */
   meta?: TableMeta<TData>;
-
-  /**
-   * @description
-   * Table class name.
-   */
   tableClassName?: string;
 }
 

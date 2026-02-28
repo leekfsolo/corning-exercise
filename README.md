@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# Corning Inclusion Table Exercise
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## How to setup and run the project
 
-Currently, two official plugins are available:
+### Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Clone or download the repository.
+2. Navigate to the project directory:
+   ```bash
+   cd corning-exercise
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## React Compiler
+## 🛠️ Available Scripts
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Development
 
-## Expanding the ESLint configuration
+Start the development server with Hot Module Replacement (HMR):
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Build
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Compile the TypeScript code and bundle the application for production:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
 ```
+
+### Testing
+
+Run the unit test suite using Vitest:
+
+```bash
+npm test
+```
+
+### Linting
+
+Check the codebase for potential issues and style violations:
+
+```bash
+npm run lint
+```
+
+## Tech stack
+
+1. React + TypeScript + Vite
+2. Tailwind CSS
+
+## Assumptions or Trade-offs
+
+1. Parent ID does not depend on the current table data, it is just a string value and can be edited.
+2. Multiple selection is not supported.
+3. Only one inclusion can be mutated at a time.
+
+## What can be improved
+
+### Enhancement before integration with backend
+
+1. Add confirm modal when delete an item.
+2. Add toast notification when an action is performed.
+3. Add auto focus to the first input field when editing/adding an item.
+4. Add keyboard actions such as Enter for saving.
+5. Format radius value (currently display value uses dot while edit value uses comma).
+
+### Enhancement after integration with backend
+
+1. Sorting server-side.
+2. Loading state for async operations.
+
+## Approximate time spent on the task
+
+It took me around 5 hours to complete this task.
